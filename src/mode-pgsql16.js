@@ -1084,6 +1084,7 @@ var PgsqlHighlightRules = function () {
     var keywordMapper = this.createKeywordMapper({
         "support.function": builtinFunctions,
         keyword: keywords,
+        describe: "\\d|\\l|\\?|\\h|\\dconfig",
     }, "identifier", true);
     var sqlRules = [
         {
@@ -1100,7 +1101,7 @@ var PgsqlHighlightRules = function () {
         },
         {
             token: keywordMapper,
-            regex: "\\\\?[a-zA-Z_][a-zA-Z0-9_$]*\\b|\\\\\\?|\\\\", // TODO - Unicode in identifiers
+            regex: "\\\\?[a-zA-Z_][a-zA-Z0-9_$]*\\b", // TODO - Unicode in identifiers
         },
         {
             token: "keyword.operator",
@@ -1136,8 +1137,12 @@ var PgsqlHighlightRules = function () {
             },
             {
                 token: "keyword.statementBegin",
-                regex: "\\\\?[a-zA-Z]+|\\\\\\?|\\\\",
+                regex: "[a-zA-Z]+",
                 next: "statement",
+            },
+            {
+                token: "describe",
+                regex: "^\\\\[\\S]+.*$"
             }
         ],
         statement: [
