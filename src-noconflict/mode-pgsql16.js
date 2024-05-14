@@ -1100,7 +1100,7 @@ var PgsqlHighlightRules = function () {
         },
         {
             token: keywordMapper,
-            regex: "\\\\\\?\\b|\\\\?[a-zA-Z_][a-zA-Z0-9_$]*\\b", // TODO - Unicode in identifiers
+            regex: "\\\\?[a-zA-Z_][a-zA-Z0-9_$]*\\b|\\\\\\?|\\\\", // TODO - Unicode in identifiers
         },
         {
             token: "keyword.operator",
@@ -1136,13 +1136,9 @@ var PgsqlHighlightRules = function () {
             },
             {
                 token: "keyword.statementBegin",
-                regex: "[a-zA-Z]+",
+                regex: "\\\\?[a-zA-Z]+|\\\\\\?|\\\\",
                 next: "statement",
-            },
-            {
-                token: "support.buildin",
-                regex: "^\\\\[\\S]+.*$",
-            },
+            }
         ],
         statement: [
             {
